@@ -17,3 +17,7 @@ If you are developing a production application, we recommend using TypeScript wi
 # Backend created
 
 # In frontend signup page created
+
+# In frontend login page created
+
+# In frontend navbar is created

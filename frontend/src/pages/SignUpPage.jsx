@@ -1,5 +1,9 @@
-import { Eye, EyeClosed, EyeOff, Lock, Mail, MessageSquare, User } from 'lucide-react'
+import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare, User } from 'lucide-react'
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import AuthImagePattern from '../components/AuthImagePattern'
+import toast from 'react-hot-toast'
+import { useAuthStore } from '../store/userAuthStore'
 
 const SignUpPage = () => {
     const [showPassword, setShowPassword] = useState(false)
@@ -9,10 +13,27 @@ const SignUpPage = () => {
         password: ""
     })
 
-    // const { signup, isSigningUp } = useAuthStore()
+    const { signup, isSigningUp } = useAuthStore();
 
     const validateForm = () => {
+        if(!formData.fullName.trim()){
+            toast.error("Full Name is required");
+            return false;
+        }
+        if(!formData.email.trim()){
+            toast.error("Email is required");
+            return false;
+        }
+        if(!formData.password.trim()){
+            toast.error("Password is required");
+            return false;
+        }
+        if(formData.password.length < 6){
+            toast.error("Password must be at least 6 characters long");
+            return false;
+        }
 
+        return true;
     }
 
     const handleSubmit = (e) => {
@@ -22,7 +43,7 @@ const SignUpPage = () => {
         }
     }
     return (
-        <div className='min-h-screen grid lg:grid-cols-2'>
+        <div className='min-h-screen grid lg:grid-cols-2 absolute top-0 left-0 right-0 bottom-0'>
             {/* left side */}
             <div className="flex flex-col justify-center items-center p-8 sm:p-12">
                 <div className='w-full max-w-md space-y-8'>
@@ -90,9 +111,25 @@ const SignUpPage = () => {
                                 </button>
                             </div>
                         </div>
+                        <button type='submit' className='btn btn-primary w-full' disabled={isSigningUp}>
+                            {isSigningUp ? <div className='flex justify-center items-center h-screen'>
+                                <Loader2 className="size-12 animate-spin" />
+                            </div> : "Create Account"}
+                        </button>
                     </form>
+                    <div className='text-center'>
+                        <p className="text-base-content/60">
+                            Already have an account? {" "}
+                            <Link to="/login" className="link link-primary font-medium">
+                                Sign In
+                            </Link>
+                        </p>
+                    </div>
                 </div>
             </div>
+
+            {/* right side */}
+            <AuthImagePattern title="Welcome to ConvoHub" subtitle="Join us to share your thoughts, connect with others, and explore new ideas." />
         </div>
     )
 }
