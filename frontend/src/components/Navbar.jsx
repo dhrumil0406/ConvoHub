@@ -7,7 +7,7 @@ const Navbar = () => {
     const { logout, authUser } = useAuthStore();
     return (
         <nav className="bg-base-300 shadow-md sticky top-0 z-50">
-            <div className="container mx-auto px-4 py-6 flex justify-between items-center">
+            <div className="container mx-auto px-4 py-5 flex justify-between items-center">
                 {/* Left side: Logo */}
                 <Link to="/" className="text-xl font-bold text-primary">
                     <div className='flex items-center gap-2'>
@@ -31,7 +31,7 @@ const Navbar = () => {
                                 <Link to="/profile" className="btn btn-sm gap-2 transition-colors text-base-content">
                                     <User className="size-5" />
                                     {/* <img src={authUser.profilePicture || "/defaultProfile.png"} alt="Profile" className="w-8 h-8 rounded-full" /> */}
-                                    <span className='hidden sm:inline'>Name</span>
+                                    <span className='hidden sm:inline'>{authUser.fullName}</span>
                                 </Link>
 
                                 <button onClick={logout} className="flex gap-2 items-center btn btn-sm text-base-content transition-colors">

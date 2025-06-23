@@ -21,3 +21,5 @@ If you are developing a production application, we recommend using TypeScript wi
 # In frontend login page created
 
 # In frontend navbar is created
+
+# In frontend profile page created

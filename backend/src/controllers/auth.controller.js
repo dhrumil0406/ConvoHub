@@ -90,15 +90,18 @@ export const updateProfile = async (req, res) => {
         }
 
         const uploadResponse = await cloudinary.uploader.upload(profilePic); // Upload the profile picture to Cloudinary
-        const updatedUser = await User.findByIdAndUpdate(userId, { profPic: uploadResponse }, { new: true });
+        
+        const updatedUser = await User.findByIdAndUpdate(userId, { profPic: uploadResponse.url }, { new: true });
 
         if (!updatedUser) {
             return res.status(404).json({ message: "User not found" });
         }
+
         return res.status(200).json({ message: "Profile updated successfully", user: { _id: updatedUser._id, fullName: updatedUser.fullName, email: updatedUser.email, profilePic: updatedUser.profPic } });
 
     } catch (error) {
-
+        console.error("Error during updateProfile controller :", error.message);
+        return res.status(500).json({ message: "Internal server error" });
     }
 }
 
