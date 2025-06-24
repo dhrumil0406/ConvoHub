@@ -27,3 +27,5 @@ If you are developing a production application, we recommend using TypeScript wi
 # In frontend setting page created
 
 # some changes on login, signup, navbar -> problem related to colors
+
+# In frontend Home page created, useChatStore and sidebarSkeleton and sidebar

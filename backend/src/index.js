@@ -18,7 +18,7 @@ app.use(cors({
 }));
 
 app.use('/api/auth', authRoutes); // Mounting auth routes
-app.use('/api/message', messageRoutes); // Mounting message routes
+app.use('/api/messages', messageRoutes); // Mounting message routes
 
 app.listen(port, () => {
     connectToDB();

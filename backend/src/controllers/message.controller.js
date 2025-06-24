@@ -6,7 +6,7 @@ import cloudinary from '../lib/cloudinary.js';
 export const getUserForSidebar = async (req, res) => {
     try {
         const loggedInUserId = req.user._id; // Get the logged-in user's ID from the request
-        const filteredUsers = await User.find({ _id: { ne: loggedInUserId } }).select('-password'); // Find all users except the logged-in user, excluding password and version fields
+        const filteredUsers = await User.find({ _id: { $ne: loggedInUserId } }).select('-password'); // Find all users except the logged-in user, excluding password and version fields
 
         return res.status(200).json(filteredUsers); // Send the filtered users as a response
     } catch (error) {
