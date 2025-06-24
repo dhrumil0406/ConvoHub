@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const AuthImagePattern = ({title, subtitle}) => {
     return (
         <div className="hidden lg:flex bg-base-200 p-12 justify-center items-center">
-            <div className='text-center max-w-md text-white'>
+            <div className='text-center max-w-md'>
                 <img
                     src="/convoHubLogo.png"
                     alt="Welcome"

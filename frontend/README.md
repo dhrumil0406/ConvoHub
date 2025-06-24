@@ -23,3 +23,7 @@ If you are developing a production application, we recommend using TypeScript wi
 # In frontend navbar is created
 
 # In frontend profile page created
+
+# In frontend setting page created
+
+# some changes on login, signup, navbar -> problem related to colors

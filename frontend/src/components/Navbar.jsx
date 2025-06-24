@@ -1,5 +1,5 @@
 import React from 'react'
-import { useAuthStore } from '../store/userAuthStore';
+import { useAuthStore } from '../store/useAuthStore';
 import { Link } from 'react-router-dom';
 import { LogIn, LogOut, Settings, User } from 'lucide-react';
 
@@ -12,7 +12,7 @@ const Navbar = () => {
                 <Link to="/" className="text-xl font-bold text-primary">
                     <div className='flex items-center gap-2'>
                         <img src="/convoHubLogo.png" alt="Logo" className="h-8 w-10" />
-                        <span className="hidden sm:inline text-xl text-white" style={{ fontFamily: "amerika" }}>ConvoHub</span>
+                        <span className="hidden sm:inline text-xl" style={{ fontFamily: "amerika" }}>ConvoHub</span>
                     </div>
                 </Link>
 
