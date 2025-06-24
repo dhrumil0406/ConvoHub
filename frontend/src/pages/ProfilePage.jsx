@@ -24,7 +24,7 @@ const ProfilePage = () => {
 
     return (
         <div className='min-h-screen'>
-            <div className='max-w-2xl mx-auto p-4 py-8'>
+            <div className='max-w-2xl mx-auto p-4 pt-12'>
                 <div className='bg-base-300 rounded-xl p-6 space-y-8'>
                     {/* Profile Header */}
                     <div className="text-center mb-8">

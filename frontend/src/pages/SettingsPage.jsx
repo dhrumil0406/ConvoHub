@@ -21,7 +21,7 @@ const SettingsPage = () => {
 
     const { theme, toggleTheme } = useThemeStore();
     return (
-        <div className='container mx-auto px-4 pt-20 max-w-5xl pb-10'>
+        <div className='min-h-screen container mx-auto px-4 pt-12 max-w-5xl'>
             <div className='space-y-6'>
                 <div className='flex justify-between border border-base-300 shadow-lg bg-base-200 px-8 py-6 rounded-lg'>
                     <div className='flex flex-col gap-1'>
