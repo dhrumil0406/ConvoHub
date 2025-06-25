@@ -91,7 +91,7 @@ export const updateProfile = async (req, res) => {
 
         const uploadResponse = await cloudinary.uploader.upload(profilePic); // Upload the profile picture to Cloudinary
         
-        const updatedUser = await User.findByIdAndUpdate(userId, { profPic: uploadResponse.url }, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(userId, { profPic: uploadResponse.secure_url }, { new: true });
 
         if (!updatedUser) {
             return res.status(404).json({ message: "User not found" });

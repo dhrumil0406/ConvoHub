@@ -41,11 +41,11 @@ export const sendMessage = async (req, res) => {
 
         let imageUrl = null; // Initialize imageUrl to null
         if (image) {
-            const uploadResponse = await cloudinary.uploader.upload(imageUrl); // Upload the image to Cloudinary
+            const uploadResponse = await cloudinary.uploader.upload(image); // Upload the image to Cloudinary
             imageUrl = uploadResponse.secure_url; // Get the secure URL of the uploaded image
         }
 
-        const newMessage = await Messages({
+        const newMessage = new Messages({
             senderId,
             receiverId,
             text, // Use the text from the request body
@@ -62,5 +62,4 @@ export const sendMessage = async (req, res) => {
         console.error('Error sending message controller :', error.message); // Log the error for debugging
         return res.status(500).json({ message: 'Internal server error' }); // Send a 500 status code with an error message
     }
-
 }

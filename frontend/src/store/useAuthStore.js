@@ -8,6 +8,8 @@ export const useAuthStore = create((set) => ({
     isLoggingIng: false,
     isUpdatingProfile: false,
     isCheckingAuth: true,
+    onlineUsers: [],
+
     checkAuth: async () => {
         try {
             const response = await axiosInstance.get('/auth/check');
@@ -19,6 +21,7 @@ export const useAuthStore = create((set) => ({
             set({ isCheckingAuth: false });
         }
     },
+
     signup: async (formData) => {
         set({ isSigningUp: true });
         try {
@@ -32,6 +35,7 @@ export const useAuthStore = create((set) => ({
             set({ isSigningUp: false });
         }
     },
+    
     login: async (formData) => {
         set({ isLoggingIng: true });
         try {
@@ -45,6 +49,7 @@ export const useAuthStore = create((set) => ({
             set({ isLoggingIng: false });
         }
     },
+
     logout: async () => {
         try {
             await axiosInstance.post('/auth/logout');
@@ -55,6 +60,7 @@ export const useAuthStore = create((set) => ({
             toast.error(error.response.data.message);
         }
     },
+    
     updateProfile: async (formData) => {
         set({ isUpdatingProfile: true });
         try {

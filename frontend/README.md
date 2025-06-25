@@ -29,3 +29,7 @@ If you are developing a production application, we recommend using TypeScript wi
 # some changes on login, signup, navbar -> problem related to colors
 
 # In frontend Home page created, useChatStore and sidebarSkeleton and sidebar
+
+# some changes on app, index.js, auth controller, msg controller
+
+# In frontend ChatContainer, ChatHeader, MessageInput page is created

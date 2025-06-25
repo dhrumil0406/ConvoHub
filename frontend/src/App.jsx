@@ -9,7 +9,6 @@ import ProfilePage from './pages/ProfilePage'
 import { useAuthStore } from './store/useAuthStore'
 import { useThemeStore } from './store/useThemeStore'
 import { Loader } from 'lucide-react'
-import { axiosInstance } from './lib/axios'
 import { Toaster } from 'react-hot-toast'
 
 const App = () => {

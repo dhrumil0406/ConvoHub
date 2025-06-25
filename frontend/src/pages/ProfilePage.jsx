@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Camera, Mail, User } from 'lucide-react';
 import { useAuthStore } from '../store/useAuthStore';
+import toast from 'react-hot-toast';
+import imageCompression from 'browser-image-compression';
 
 const ProfilePage = () => {
 
@@ -12,14 +14,32 @@ const ProfilePage = () => {
         const file = e.target.files[0];
         if (!file) return;
 
-        const reader = new FileReader();
+        const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 
-        reader.readAsDataURL(file);
+        const options = {
+            maxSizeMB: 1,
+            maxWidthOrHeight: 800,
+            useWebWorker: true,
+        };
+
+        if (!file.type.startsWith("image/")) {
+            toast.error("Please select an image file!");
+            return;
+        }
+
+        if (file.size > MAX_FILE_SIZE) {
+            toast.error("Image size should be less than 2MB");
+            return;
+        }
+
+        const compressedFile = await imageCompression(file, options);
+        const reader = new FileReader();
         reader.onload = async () => {
             const base64Image = reader.result;
             setSelectedImg(base64Image);
             await updateProfile({ profilePic: base64Image });
         }
+        reader.readAsDataURL(compressedFile);
     }
 
     return (
