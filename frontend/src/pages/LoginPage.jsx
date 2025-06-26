@@ -11,7 +11,7 @@ const LoginPage = () => {
         email: "",
         password: ""
     });
-    const { login, isLoggingIng } = useAuthStore();
+    const { login, isLoggingIn } = useAuthStore();
 
     const validateForm = () => {
         if (!formData.email.trim()) {
@@ -87,8 +87,8 @@ const LoginPage = () => {
                                 </button>
                             </div>
                         </div>
-                        <button type='submit' className='btn btn-primary w-full' disabled={isLoggingIng}>
-                            {isLoggingIng ? <div className='flex justify-center items-center h-screen'>
+                        <button type='submit' className='btn btn-primary w-full' disabled={isLoggingIn}>
+                            {isLoggingIn ? <div className='flex justify-center items-center h-screen'>
                                 <Loader2 className="size-12 animate-spin" />
                                 Loading...
                             </div> : "Sign in"}

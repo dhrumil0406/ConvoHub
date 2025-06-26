@@ -1,6 +1,7 @@
 import User from '../models/user.model.js';
 import Messages from '../models/message.model.js';
 import cloudinary from '../lib/cloudinary.js';
+import { getReceiverSocketId, io } from '../lib/socket.js';
 
 
 export const getUserForSidebar = async (req, res) => {
@@ -55,7 +56,13 @@ export const sendMessage = async (req, res) => {
         if (!newMessage) {
             return res.status(400).json({ message: 'Failed to create message' }); // If message creation fails, send a 400 status code
         }
+
         await newMessage.save(); // Save the new message to the database
+
+        const receiverSocketId = getReceiverSocketId(receiverId);
+        if (receiverSocketId) {
+            io.to(receiverSocketId).emit("newMessage", newMessage);
+        }
         return res.status(200).json(newMessage); // Send the newly created message as a
 
     } catch (error) {

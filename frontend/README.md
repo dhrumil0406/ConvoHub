@@ -33,3 +33,5 @@ If you are developing a production application, we recommend using TypeScript wi
 # some changes on app, index.js, auth controller, msg controller
 
 # In frontend ChatContainer, ChatHeader, MessageInput page is created
+
+# Live communication added on login, logout and messages

@@ -3,15 +3,19 @@ import { useChatStore } from '../store/useChatStore'
 import SidebarSkeleton from './Skeletons/SidebarSkeleton';
 import { Users } from 'lucide-react';
 import { useAuthStore } from '../store/useAuthStore';
+import { useState } from 'react';
 
 const Sidebar = () => {
     const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading } = useChatStore();
 
     const { onlineUsers } = useAuthStore();
+    const [showOnlineOnly, setShowOnlineOnly] = useState(false);
 
     useEffect(() => {
         getUsers()
     }, [getUsers]);
+
+    const filteredUsers = showOnlineOnly ? users.filter(user => onlineUsers.includes(user._id)) : users;
 
     if (isUsersLoading) {
         return <SidebarSkeleton />
@@ -26,20 +30,36 @@ const Sidebar = () => {
                 </div>
 
                 {/* todo */}
+                <div className='mt-3 hidden lg:flex items-center gap-2'>
+                    <label htmlFor="" className='cursor-pointer flex items-center gap-2'>
+                        <input type="checkbox"
+                            checked={showOnlineOnly}
+                            onChange={(e) => setShowOnlineOnly(e.target.checked)}
+                            className='checkbox checkbox-sm'
+                        />
+                        <span className='text-sm'>Show Online only</span>
+                    </label>
+                    <span className='text-xs text-zinc-500'>({onlineUsers?.length - 1} online)</span>
+                </div>
             </div>
 
             <div className='overflow-y-auto w-full py-3'>
                 {!users.length && (
                     <p className='text-center text-sm text-zinc-500 py-6'>No users found</p>
                 )}
-                {users.map((user) => (
+
+                {!filteredUsers.length === 0 && (
+                    <p className='text-center text-sm text-zinc-500 py-6'>No online users</p>
+                )}
+
+                {filteredUsers.map((user) => (
                     <button key={user._id}
                         onClick={() => setSelectedUser(user)}
                         className={`w-full p-3 flex items-center gap-3 hover:bg-base-300 transition-colors ${selectedUser?._id === user._id ? "bg-base-300 ring-1 ring-base-300" : ""}`}
                     >
                         <div className='relative mx-auto lg:mx-0'>
                             <img src={user.profPic || "/profile-img.jpg"} alt={user.fullName} className='size-12 object-cover rounded-full' />
-                            {onlineUsers.includes(user._id) && (
+                            {(onlineUsers || [])?.includes(user._id) && (
                                 <span className='absolute bottom-0 right-0 size-3 bg-green-500 rounded-full ring-2 ring-zinc-900' />
                             )}
                         </div>
@@ -47,7 +67,7 @@ const Sidebar = () => {
                         <div className='hidden lg:block text-left min-w-0'>
                             <div className='font-medium truncate'>{user.fullName}</div>
                             <div className='text-sm text-zinc-400'>
-                                {onlineUsers.includes(user._id) ? "Online" : "Offline"}
+                                {onlineUsers?.includes(user._id) ? "Online" : "Offline"}
                             </div>
                         </div>
                     </button>

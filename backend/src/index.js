@@ -5,9 +5,10 @@ import { connectToDB } from './lib/db.js';
 import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth.route.js';
 import messageRoutes from './routes/message.route.js';
+import { app, server } from './lib/socket.js';
 
 dotenv.config(); // Load environment variables from .env file
-const app = express(); // Initialize the Express application
+
 const port = process.env.PORT || 5002;
 
 app.use(express.json({ limit: '10mb' }));
@@ -22,7 +23,7 @@ app.use(cookieParser()); // Middleware to parse cookies
 app.use('/api/auth', authRoutes); // Mounting auth routes
 app.use('/api/messages', messageRoutes); // Mounting message routes
 
-app.listen(port, () => {
+server.listen(port, () => {
     connectToDB();
     console.log(`Server is running on http://localhost:${port}`);
 })
