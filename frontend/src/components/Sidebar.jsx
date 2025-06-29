@@ -15,7 +15,7 @@ const Sidebar = () => {
         getUsers()
     }, [getUsers]);
 
-    const filteredUsers = showOnlineOnly ? users.filter(user => onlineUsers.includes(user._id)) : users;
+    const filteredUsers = showOnlineOnly ? users.filter(user => (onlineUsers || []).includes(user._id)) : users;
 
     if (isUsersLoading) {
         return <SidebarSkeleton />
@@ -44,12 +44,10 @@ const Sidebar = () => {
             </div>
 
             <div className='overflow-y-auto w-full py-3'>
-                {!users.length && (
-                    <p className='text-center text-sm text-zinc-500 py-6'>No users found</p>
-                )}
-
-                {!filteredUsers.length === 0 && (
-                    <p className='text-center text-sm text-zinc-500 py-6'>No online users</p>
+                {filteredUsers.length === 0 && (
+                    <p className='text-center text-sm text-zinc-500 py-6'>
+                        {showOnlineOnly ? "No online users" : "No users found"}
+                    </p>
                 )}
 
                 {filteredUsers.map((user) => (
@@ -67,7 +65,7 @@ const Sidebar = () => {
                         <div className='hidden lg:block text-left min-w-0'>
                             <div className='font-medium truncate'>{user.fullName}</div>
                             <div className='text-sm text-zinc-400'>
-                                {onlineUsers?.includes(user._id) ? "Online" : "Offline"}
+                                {(onlineUsers || [])?.includes(user._id) ? "Online" : "Offline"}
                             </div>
                         </div>
                     </button>
