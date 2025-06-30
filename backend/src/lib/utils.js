@@ -8,10 +8,9 @@ export const generateToken = (user, res) => {
 
     res.cookie('token', token, {
         httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
-        secure: process.env.NODE_ENV !== 'development', // Use secure cookies in production
-        sameSite: 'strict', // Helps prevent CSRF attacks
+        secure: true || process.env.NODE_ENV !== 'production', // Use secure cookies in production
+        sameSite: 'None',
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days,
-        sameSite: "lax",
     });
 
     return token;

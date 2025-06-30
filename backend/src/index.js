@@ -15,11 +15,14 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 app.use(cors({
-    origin: 'http://localhost:5173', // Allow requests from this origin
+    origin: ['http://localhost:5173','https://convo-hub-gray.vercel.app'], // Allow requests from this origin
     credentials: true, // Allow credentials (cookies, authorization headers, etc.)
 }));
 app.use(cookieParser()); // Middleware to parse cookies
 
+app.get('/', (req, res) => {
+    res.send("Welcome page...");
+});
 app.use('/api/auth', authRoutes); // Mounting auth routes
 app.use('/api/messages', messageRoutes); // Mounting message routes
 
